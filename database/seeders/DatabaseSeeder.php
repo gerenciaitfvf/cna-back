@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Competition;
+use App\Models\Referee;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,5 +23,8 @@ class DatabaseSeeder extends Seeder
             'name' => 'Rafael Velasquez',
             'email' => 'rafael.velasquez@fvf.com.ve',
         ]);
+
+        Referee::factory(100)->create();
+        Competition::factory(30)->create();
     }
 }

@@ -8,6 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
+use Jerry\JWT\JWT;
+use Tymon\JWTAuth\Facades\JWTAuth;
+
 
 class AuthController extends Controller
 {
@@ -30,11 +33,27 @@ class AuthController extends Controller
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
+        $customClaim = ['datos' => User::where('email', request('email'))->get()];
+
+        
+        $token = null;
+        //if (! $token = auth()->attempt($credentials, $user)) {
+            if (! $token = JWTAuth::attempt($credentials, $customClaim)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+            
+            $user = User::where('email', request('email'))->first();
+            
+        $payload = [
+            "name" => $user->name,
+            "email" => $user->email,
+            ];
+        $token = JWT::encode($payload);
 
         return $this->respondWithToken($token);
+
+        
+        //return response()->json(compact('token'));
     }
 
     /**

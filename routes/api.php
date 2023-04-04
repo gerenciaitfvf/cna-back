@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CompetitionController;
+use App\Http\Controllers\Api\RefereeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +30,10 @@ Route::group([
     Route::post('me', [AuthController::class, 'me']);
     Route::post('register', [AuthController::class, 'register']);
 });
+
+Route::get('referee', [RefereeController::class, 'index']);
+Route::get('referee/{referee}', [RefereeController::class, 'show']);
+Route::post('referee', [RefereeController::class, 'store']);
+Route::put('referee/{referee}', [RefereeController::class, 'update']);
+
+Route::get('competition', [CompetitionController::class, 'index']);
