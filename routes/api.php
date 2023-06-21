@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AssociationController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CompetitionController;
 use App\Http\Controllers\Api\RefereeController;
@@ -37,3 +38,6 @@ Route::post('referee', [RefereeController::class, 'store']);
 Route::put('referee/{referee}', [RefereeController::class, 'update']);
 
 Route::get('competition', [CompetitionController::class, 'index']);
+
+Route::get('association', [AssociationController::class, 'index']);
+Route::get('association/select', [AssociationController::class, 'listSelect']);

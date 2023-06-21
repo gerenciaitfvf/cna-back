@@ -26,5 +26,7 @@ class DatabaseSeeder extends Seeder
 
         Referee::factory(100)->create();
         Competition::factory(30)->create();
+
+        $this->call(AssociationSeeder::class);
     }
 }
